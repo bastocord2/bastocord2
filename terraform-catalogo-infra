@@ -1,0 +1,127 @@
+[0m# aws_instance.catalogo-de-bases:
+resource "aws_instance" "catalogo-de-bases" {
+    [1m[0mami[0m[0m                                  = "ami-033b95fb8079dc481"
+    [1m[0marn[0m[0m                                  = "arn:aws:ec2:us-east-1:596997344952:instance/i-07e227f104924e791"
+    [1m[0massociate_public_ip_address[0m[0m          = true
+    [1m[0mavailability_zone[0m[0m                    = "us-east-1a"
+    [1m[0mcpu_core_count[0m[0m                       = 1
+    [1m[0mcpu_threads_per_core[0m[0m                 = 1
+    [1m[0mdisable_api_termination[0m[0m              = false
+    [1m[0mebs_optimized[0m[0m                        = false
+    [1m[0mget_password_data[0m[0m                    = false
+    [1m[0mhibernation[0m[0m                          = false
+    [1m[0mid[0m[0m                                   = "i-07e227f104924e791"
+    [1m[0minstance_initiated_shutdown_behavior[0m[0m = "stop"
+    [1m[0minstance_state[0m[0m                       = "running"
+    [1m[0minstance_type[0m[0m                        = "t2.micro"
+    [1m[0mipv6_address_count[0m[0m                   = 0
+    [1m[0mipv6_addresses[0m[0m                       = []
+    [1m[0mkey_name[0m[0m                             = "catalogo-aws"
+    [1m[0mmonitoring[0m[0m                           = false
+    [1m[0mprimary_network_interface_id[0m[0m         = "eni-07ff55349b3e25848"
+    [1m[0mprivate_dns[0m[0m                          = "ip-172-31-84-51.ec2.internal"
+    [1m[0mprivate_ip[0m[0m                           = "172.31.84.51"
+    [1m[0mpublic_dns[0m[0m                           = "ec2-3-83-141-147.compute-1.amazonaws.com"
+    [1m[0mpublic_ip[0m[0m                            = "3.83.141.147"
+    [1m[0msecondary_private_ips[0m[0m                = []
+    [1m[0msecurity_groups[0m[0m                      = [
+        "acesso-ssh",
+        "default",
+    ]
+    [1m[0msource_dest_check[0m[0m                    = true
+    [1m[0msubnet_id[0m[0m                            = "subnet-70a6f951"
+    [1m[0mtags[0m[0m                                 = {
+        "Name" = "servidor-catalogo"
+    }
+    [1m[0mtags_all[0m[0m                             = {
+        "Name" = "servidor-catalogo"
+    }
+    [1m[0mtenancy[0m[0m                              = "default"
+    [1m[0mvpc_security_group_ids[0m[0m               = [
+        "sg-023e572cef3c92c88",
+    ]
+
+    capacity_reservation_specification {
+        [1m[0mcapacity_reservation_preference[0m[0m = "open"
+    }
+
+    credit_specification {
+        [1m[0mcpu_credits[0m[0m = "standard"
+    }
+
+    enclave_options {
+        [1m[0menabled[0m[0m = false
+    }
+
+    metadata_options {
+        [1m[0mhttp_endpoint[0m[0m               = "enabled"
+        [1m[0mhttp_put_response_hop_limit[0m[0m = 1
+        [1m[0mhttp_tokens[0m[0m                 = "optional"
+        [1m[0minstance_metadata_tags[0m[0m      = "disabled"
+    }
+
+    root_block_device {
+        [1m[0mdelete_on_termination[0m[0m = true
+        [1m[0mdevice_name[0m[0m           = "/dev/xvda"
+        [1m[0mencrypted[0m[0m             = false
+        [1m[0miops[0m[0m                  = 100
+        [1m[0mtags[0m[0m                  = {}
+        [1m[0mthroughput[0m[0m            = 0
+        [1m[0mvolume_id[0m[0m             = "vol-0c1b3320ffd70357f"
+        [1m[0mvolume_size[0m[0m           = 8
+        [1m[0mvolume_type[0m[0m           = "gp2"
+    }
+}
+
+# aws_security_group.acesso-ssh:
+resource "aws_security_group" "acesso-ssh" {
+    [1m[0marn[0m[0m                    = "arn:aws:ec2:us-east-1:596997344952:security-group/sg-023e572cef3c92c88"
+    [1m[0mdescription[0m[0m            = "Permitir acesso SSH"
+    [1m[0megress[0m[0m                 = [
+        {
+            cidr_blocks      = [
+                "0.0.0.0/0",
+            ]
+            description      = ""
+            from_port        = 0
+            ipv6_cidr_blocks = []
+            prefix_list_ids  = []
+            protocol         = "-1"
+            security_groups  = []
+            self             = false
+            to_port          = 0
+        },
+    ]
+    [1m[0mid[0m[0m                     = "sg-023e572cef3c92c88"
+    [1m[0mingress[0m[0m                = [
+        {
+            cidr_blocks      = [
+                "0.0.0.0/0",
+            ]
+            description      = "Acesso SSH"
+            from_port        = 22
+            ipv6_cidr_blocks = []
+            prefix_list_ids  = []
+            protocol         = "tcp"
+            security_groups  = []
+            self             = false
+            to_port          = 22
+        },
+    ]
+    [1m[0mname[0m[0m                   = "acesso-ssh"
+    [1m[0mowner_id[0m[0m               = "596997344952"
+    [1m[0mrevoke_rules_on_delete[0m[0m = false
+    [1m[0mtags[0m[0m                   = {
+        "Name" = "ssh"
+    }
+    [1m[0mtags_all[0m[0m               = {
+        "Name" = "ssh"
+    }
+    [1m[0mvpc_id[0m[0m                 = "vpc-fce88581"
+}
+
+
+Outputs:
+
+instance_id = "i-07e227f104924e791"
+instance_public_ip = "3.83.141.147"[0m[0m
